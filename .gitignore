@@ -1,0 +1,12 @@
+# Bỏ qua môi trường ảo
+venv/
+
+# Bỏ qua file biên dịch Python
+__pycache__/
+*.pyc
+
+# Bỏ qua file dữ liệu checkpoint của Jupyter (nếu có)
+.ipynb_checkpoints
+
+# Bỏ qua cài đặt PyCharm (nếu không muốn chia sẻ)
+.idea/
