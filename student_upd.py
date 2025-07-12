@@ -33,7 +33,7 @@ class Student:
     def __init__(self,root):
         self.root = root
         self.root.geometry("1530x790+0+0")
-        self.root.title("Quản lý sinh viên")
+        self.root.title("Danh sách sinh viên")
         self.root.configure(bg=CAFE_BG)
         today = strftime("%d-%m-%Y")
 
@@ -107,14 +107,14 @@ class Student:
         year_label = Label(current_course_frame, text="Năm học", font=CAFE_FONT_BOLD, bg=CAFE_BG, fg=CAFE_TITLE)
         year_label.grid(row=1, column=0, padx=10, sticky=W)
         year_combo = ttk.Combobox(current_course_frame, textvariable=self.var_year, font=CAFE_FONT, state="readonly", width=20)
-        year_combo["values"] = ("Chọn năm học", "2020-21", "2021-22", "2022-23", "2023-24")
+        year_combo["values"] = ("Chọn năm học", "2021-22", "2022-23", "2023-24", "2024-25")
         year_combo.current(0)
         year_combo.grid(row=1, column=1, padx=2, pady=8, sticky=W)
 
         semester_label = Label(current_course_frame, text="Học kì", font=CAFE_FONT_BOLD, bg=CAFE_BG, fg=CAFE_TITLE)
         semester_label.grid(row=1, column=2, padx=10, sticky=W)
         semester_combo = ttk.Combobox(current_course_frame, textvariable=self.var_semester, font=CAFE_FONT, state="readonly", width=20)
-        semester_combo["values"] = ("Chọn học kì", "Học kì I", "Học kì II")
+        semester_combo["values"] = ("Chọn học kì", "Học kì I", "Học kì II", "Học kì III")
         semester_combo.current(0)
         semester_combo.grid(row=1, column=3, padx=2, pady=8, sticky=W)
 
@@ -198,11 +198,11 @@ class Student:
         Right_frame = Frame(main_frame, bd=0, bg=CAFE_SECONDARY, highlightbackground=CAFE_PRIMARY, highlightthickness=2)
         Right_frame.place(x=750, y=10, width=720, height=330)
 
-        # Search frame
+        # Search framesearch
         search_frame = Frame(Right_frame, bg=CAFE_ACCENT)
         search_frame.place(x=7, y=7, width=705, height=56)
         self.var_com_search = StringVar()
-        search_label = Label(search_frame, text="Tìm kiếm theo :", font=CAFE_FONT_BOLD, bg=CAFE_ACCENT, fg=CAFE_WHITE)
+        search_label = Label(search_frame, text="Tìm kiếm :", font=CAFE_FONT_BOLD, bg=CAFE_ACCENT, fg=CAFE_WHITE)
         search_label.grid(row=0, column=0, padx=12, pady=8, sticky=W)
         search_combo = ttk.Combobox(search_frame, font=CAFE_FONT, state="readonly", width=13, textvariable=self.var_com_search)
         search_combo["values"] = ("ID Sinh viên", "Tên sinh viên", "Lớp biên chế")
@@ -242,22 +242,10 @@ class Student:
         # ===============BOTTOM RIGHT CLASS====================
         Underright_frame = Frame(main_frame, bg=CAFE_SECONDARY, highlightbackground=CAFE_PRIMARY, highlightthickness=2)
         Underright_frame.place(x=750, y=345, width=720, height=310)
-        label_studentsb = Label(Underright_frame, bg=CAFE_ACCENT, fg=CAFE_WHITE, text="Quản lý lớp học", font=CAFE_FONT_BOLD)
+        label_studentsb = Label(Underright_frame, bg=CAFE_ACCENT, fg=CAFE_WHITE, text="Danh sách lớp học", font=CAFE_FONT_BOLD)
         label_studentsb.place(x=0, y=1, width=720, height=36)
 
-        # Search Class
-        self.var_com_searchclass = StringVar()
-        search_combo = ttk.Combobox(Underright_frame, font=CAFE_FONT, textvariable=self.var_com_searchclass, state="readonly", width=12)
-        search_combo["values"] = ("Lớp", "Tên lớp")
-        search_combo.current(0)
-        search_combo.place(x=20, y=55, width=120)
-        self.var_searchclass = StringVar()
-        searchstd_entry = ttk.Entry(Underright_frame, textvariable=self.var_searchclass, width=13, font=CAFE_FONT)
-        searchstd_entry.place(x=155, y=55, width=140)
-        searchstd_btn = Button(Underright_frame, command=self.search_Classdata, text="Search", font=CAFE_FONT_BOLD, bg=CAFE_BUTTON, fg=CAFE_BUTTON_TEXT, width=10)
-        searchstd_btn.place(x=310, y=53)
-        showAllstd_btn = Button(Underright_frame, text="All", command=self.fetch_Classdata, font=CAFE_FONT_BOLD, bg=CAFE_BUTTON, fg=CAFE_BUTTON_TEXT, width=10)
-        showAllstd_btn.place(x=420, y=53)
+
 
         # student/class
         studentid_label = Label(Underright_frame, text="Lớp học:", font=CAFE_FONT_BOLD, bg=CAFE_SECONDARY, width=12)
