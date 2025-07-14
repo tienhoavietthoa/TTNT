@@ -459,7 +459,7 @@ class Student:
         except Exception as e:
             print(f"Database error: {e}")
 
-    # ======================get-cursor==============================
+    # ======================Các chức năng==============================
     def get_cursor(self, event=""):
         cursor_focus = self.student_table.focus()
         content = self.student_table.item(cursor_focus)
@@ -633,19 +633,21 @@ class Student:
                 self.fetch_data()
                 self.reset_data()
                 conn.close()
-                # =========load haar===================
-                face_classifier = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
+                # =========Khởi tạo Haar Cascade Classifier===================
+                face_classifier = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+                    #Hàm cắt khuôn mặt
                 def face_cropped(img):
                     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                    faces = face_classifier.detectMultiScale(gray, 1.3, 5)
-                    # scaling factor 1.3
-                    ##minimum neighbor 5
+                    faces = face_classifier.detectMultiScale(gray, 1.3, 5) #Quét ảnh ở nhiều kích thước khác nhau để tìm khuôn mặt
+                    #scaling factor 1.3: Giảm kích thước ảnh 30% mỗi lần quét
+                    #minimum neighbor 5:  Cần ít nhất 5 vùng chồng lấp để xác nhận là khuôn mặt
                     for (x, y, w, h) in faces:
                         face_cropped = img[y:y + h, x:x + w]
 
                         return face_cropped
 
+                    #Thu thập ảnh từ camera
                 cap = cv2.VideoCapture(0)
                 img_id = 0
                 while True:
@@ -676,9 +678,9 @@ class Student:
         faces = []
         ids = []
         for image in path:
-            img = PIL.Image.open(image).convert('L')
-            imageNp = np.array(img, 'uint8')
-            id = int(os.path.split(image)[1].split('.')[1])
+            img = PIL.Image.open(image).convert('L') # Chuyển sang grayscale
+            imageNp = np.array(img, 'uint8')        # ← Pixel 0-255
+            id = int(os.path.split(image)[1].split('.')[1]) # Lấy ID từ tên file
             faces.append(imageNp)
             ids.append(id)
             cv2.imshow("Training", imageNp)
@@ -686,9 +688,10 @@ class Student:
         ids = np.array(ids)
 
         # =================Train data classifier and save============
+        #LBPH tính toán "chữ ký" cho mỗi ảnh
         clf = cv2.face.LBPHFaceRecognizer_create()
-        clf.train(faces, ids)
-        clf.write("classifier.xml")
+        clf.train(faces, ids)       # ← Học các pattern từ faces và ids
+        clf.write("classifier.xml") # Load model đã train
         cv2.destroyAllWindows()
         messagebox.showinfo("Kết quả", "Training dataset Completed", parent=self.root)
 
